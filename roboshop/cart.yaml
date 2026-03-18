@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
       - name: cart
-        image: 160885265516.dkr.ecr.us-east-1.amazonaws.com/roboshop/cart:1.0.0
+        image: 334864977755.dkr.ecr.us-east-1.amazonaws.com/roboshop/cart:1.0.0
         envFrom:
         - configMapRef:
             name: cart

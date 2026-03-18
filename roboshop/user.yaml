@@ -1,41 +1,25 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: payment
+  name: user
   namespace: roboshop
   labels:
-    component: payment
+    component: user
     project: roboshop
     tier: app
 data:
-  CART_HOST: "cart"
-  CART_PORT: "8080"
-  USER_HOST: "user"
-  USER_PORT: "8080"
-  AMQP_HOST: "rabbitmq"
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: payment
-  namespace: roboshop
-  labels:
-    component: payment
-    project: roboshop
-    tier: app
-type: Opaque
-data:
-  AMQP_USER: "cm9ib3Nob3A="
-  AMQP_PASS: "cm9ib3Nob3AxMjM="
+  MONGO_URL: "mongodb://mongodb:27017/users"
+  REDIS_URL: "redis://redis:6379"
+  MONGO: "true"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: payment
+  name: user
   namespace: roboshop
   # deployment labels
   labels:
-    component: payment
+    component: user
     project: roboshop
     tier: app
 spec:
@@ -43,38 +27,36 @@ spec:
   # These are the labels replica set use to create pod replicas, this should match pod labels
   selector:
     matchLabels:
-      component: payment
+      component: user
       project: roboshop
       tier: app
   # This is pod definition
   template:
     metadata:
       labels:
-        component: payment
+        component: user
         project: roboshop
         tier: app
     spec:
       containers:
-      - name: payment
-        image: 334864977755.dkr.ecr.us-east-1.amazonaws.com/roboshop/payment:1.0.0
+      - name: user
+        image: 334864977755.dkr.ecr.us-east-1.amazonaws.com/roboshop/user:1.0.0
         envFrom:
         - configMapRef:
-            name: payment
-        - secretRef:
-            name: payment
+            name: user
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: payment
+  name: user
   namespace: roboshop
   labels:
-    component: payment
+    component: user
     project: roboshop
     tier: app
 spec:
   selector:
-    component: payment
+    component: user
     project: roboshop
     tier: app
   ports:
