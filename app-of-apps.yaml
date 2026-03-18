@@ -9,7 +9,7 @@ metadata:
 spec:
   project: default # The Argo CD Project this application belongs to
   source:
-    repoURL: https://github.com/BharathKumarReddy2103/eks-argocd # URL of the Git repository
+    repoURL: https://github.com/BharathKumarReddy2103/eks-argocd.git # URL of the Git repository
     targetRevision: main # The specific branch, tag, or commit to sync from
     path: applications # The path within the repository where the application manifests are located
   destination:
@@ -21,4 +21,3 @@ spec:
       selfHeal: true # Revert changes made manually in the cluster to match Git
     syncOptions:
       - CreateNamespace=true # Automatically create the target namespace if it doesn't exist
-      
