@@ -18,4 +18,3 @@ spec:
       selfHeal: true # Revert changes made manually in the cluster to match Git
     syncOptions:
       - CreateNamespace=true # Automatically create the target namespace if it doesn't exist
-      
